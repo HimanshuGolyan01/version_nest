@@ -1,7 +1,11 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { initrepo } from "./controllers/init.js";
-import { add } from "./controllers/add.js"; 
+import { addrepo } from "./controllers/add.js"; 
+import {commitrepo} from "./controllers/commit.js";
+import {pushrepo} from "./controllers/push.js";
+import {pullrepo} from "./controllers/pull.js";
+import {revertrepo} from "./controllers/revert.js";
 
 yargs(hideBin(process.argv))
     .command( //init repo
@@ -19,5 +23,31 @@ yargs(hideBin(process.argv))
             type: "string",
         });
     },
-    add
-).argv;
+    addrepo)
+
+    .command(
+    "commit <message>",
+    "Commit the staged files",
+    (yargs) => {
+        return yargs.positional("message", {
+            describe: "The commit message",
+            type: "string",
+        });
+    },
+    commitrepo)
+
+    .command("push","push commit to s3", {}, pushrepo)
+    .command("pull","pull commit from s3", {}, pullrepo)
+    
+    .command(
+        "revert<commitId>",
+        "Revert to a specific commit",
+        (yargs) => {
+            yars.positional("commitId", {
+                describe: "The commit ID to revert to",
+                type: "string",
+            });
+        },
+        revertrepo
+    ).argv;
+
