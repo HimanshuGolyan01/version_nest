@@ -1,7 +1,7 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { initrepo } from "./controllers/init.js";
-import { addrepo } from "./controllers/add.js"; 
+import { initrepo } from "./controllers/init.js"; // done basic implementation, needs improvement
+import { addrepo } from "./controllers/add.js";  // done basic implementation, needs improvement
 import {commitrepo} from "./controllers/commit.js";
 import {pushrepo} from "./controllers/push.js";
 import {pullrepo} from "./controllers/pull.js";
@@ -23,7 +23,8 @@ yargs(hideBin(process.argv))
             type: "string",
         });
     },
-    addrepo)
+    (args) => {addrepo(args.file);
+    })
 
     .command(
     "commit <message>",
