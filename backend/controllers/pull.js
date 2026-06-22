@@ -1,3 +1,3 @@
-export function commitrepo(args) {
-    console.log("commit command called....")
+export function pullrepo(args) {
+    console.log("Pull command called...");
 }
